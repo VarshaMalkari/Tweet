@@ -12,7 +12,7 @@ Features:
 
 Installation
 1️⃣ Clone the repository: 
-    git clone https://github.com/VarshaMalkari/tweetheadq.git
+    git clone https://github.com/VarshaMalkari/Tweet.git
     cd tweetheadq
 
 
