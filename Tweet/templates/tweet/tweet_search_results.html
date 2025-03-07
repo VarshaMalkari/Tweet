@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Search Results
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center mt-4">Search Results</h1>
+
+{% if form.cleaned_data.query %}
+    <h3>Showing results for: "<strong>{{ form.cleaned_data.query }}</strong>"</h3>
+{% endif %}
+
+<div class="container">
+    <div class="d-flex flex-wrap gap-4">
+        {% if tweets %}
+            {% for tweet in tweets %}
+                <div class="card" style="width: 18rem;">
+                    {% if tweet.photo %}
+                        <img src="{{ tweet.photo.url }}" class="card-img-top" alt="image">
+                    {% else %}
+                        <img src="https://via.placeholder.com/150" class="card-img-top" alt="No image available">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">@{{ tweet.user.username }}</h5>
+                        <p class="card-text">{{ tweet.text }}</p>
+                        {% if tweet.user == user %}
+                            <a href="{% url 'tweet_edit' tweet.id %}" class="btn btn-primary">Edit</a>
+                            <a href="{% url 'tweet_delete' tweet.id %}" class="btn btn-danger">Delete</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-center">No tweets found for "<strong>{{ form.cleaned_data.query }}</strong>".</p>
+        {% endif %}
+    </div>
+</div>
+
+<a href="{% url 'tweet_list' %}" class="btn btn-secondary mt-3">Back to Tweets</a>
+{% endblock %}
